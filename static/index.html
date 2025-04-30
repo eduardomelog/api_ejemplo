@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Saludo API</title>
+</head>
+<body>
+    <h1>Escribe tu nombre:</h1>
+
+    <input type="text" id="nombre" placeholder="Tu nombre">
+    <button onclick="enviarNombre()">Enviar</button>
+
+    <h2 id="respuesta"></h2>
+
+    <script>
+        async function enviarNombre() {
+            const nombre = document.getElementById("nombre").value;
+
+            const respuesta = await fetch('http://127.0.0.1:8000/saludar', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ nombre: nombre })
+            });
+
+            const datos = await respuesta.json();
+
+            document.getElementById("respuesta").innerText = datos.mensaje;
+        }
+    </script>
+</body>
+</html>
